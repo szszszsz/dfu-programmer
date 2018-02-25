@@ -5,7 +5,7 @@
 
 #include "commands.h"
 
-int debug;
+int debug = 1;
 #ifdef HAVE_LIBUSB_1_0
 libusb_context *usbcontext;
 #endif
@@ -35,16 +35,18 @@ int init_device(const uint32_t vendor,
 int init_short_usbaddr(const uint32_t bus_number,
                const uint32_t device_address){
   return init_device(
-      0x20a0, 0x4108, bus_number, device_address, &dfu_device,
+      0x03eb, 0x2FF1, bus_number, device_address, &dfu_device,
       0, 0
   );
 }
 
 int init_short(){
-  return init_device(0x2FF1, 0x03eb, 0, 0, &dfu_device, 0, 0);
+  return init_device(0x03eb, 0x2FF1, 0, 0, &dfu_device, 0, 0);
 }
 
 int close_device(){
+  if (dfu_device.handle==NULL) return 0;
+
   int rv;
 #ifdef HAVE_LIBUSB_1_0
   rv = libusb_release_interface( dfu_device.handle, dfu_device.interface );
