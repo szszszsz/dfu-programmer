@@ -74,20 +74,14 @@ int close_device(){
   return rv;
 }
 
-void erase(){
-  return;
-}
-
-void flash(){
-  return;
-}
-
 struct programmer_arguments args;
 
-char *argv[] = {"name\0", "at32uc3a3256s\0","launch\0"};
+char *argv[] = {"binary_name", "at32uc3a3256s","flash",
+                "--suppress-bootloader-mem",
+                "/home/sz/work/github/dfu-programmer/cmake-build-debug/firmware_V0.50.0.hex"};
 
 void init_args(){
-  parse_arguments(&args, 3, argv);
+  parse_arguments(&args, 5, argv);
 }
 
 void init_usb(){
@@ -101,18 +95,47 @@ void init_usb(){
 #endif
 }
 
-void launch(){
+int init(){
   init_args();
   init_usb();
 
   if(!init_short()){
-    printf("error\n");
+    printf("error in init\n");
     close_device();
+    return 1;
+  }
+  return 0;
+}
+
+void launch(){
+  if(init()){
+    printf("error init. closing.\n");
     return;
   }
 
   execute_launch(&dfu_device, &args);
 
   close_device();
-  return;
+}
+
+
+void erase(){
+  if(init())
+    return;
+
+  execute_erase(&dfu_device, &args);
+
+  close_device();
+}
+
+void flash(){
+  init_args();
+//  if(init())
+//    return;
+
+//  args.suppressbootloader = 1;
+  printf("args.suppressbootloader: %d\n", args.suppressbootloader);
+//  execute_flash(&dfu_device, &args);
+
+  close_device();
 }

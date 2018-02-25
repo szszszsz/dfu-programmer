@@ -6,5 +6,7 @@
 
 int main(){
 
-  launch();
+//  launch();
+//  erase();
+  flash();
 }

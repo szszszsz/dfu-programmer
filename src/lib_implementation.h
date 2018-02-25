@@ -29,7 +29,6 @@ extern libusb_context *usbcontext;
 #endif
 
 
-
 void erase();
 void flash();
 void launch();

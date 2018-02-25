@@ -545,7 +545,7 @@ static int32_t assign_global_options( struct programmer_arguments *args,
     /* Find '--suppress-bootloader-mem' if it is here */
     for( i = 0; i < argc; i++ ) {
         if( 0 == strcmp("--suppress-bootloader-mem", argv[i]) ) {
-            *argv[i] = '\0';
+//            *argv[i] = '\0';
             args->suppressbootloader = 1;
             break;
         }
@@ -940,7 +940,7 @@ static int32_t assign_command_options( struct programmer_arguments *args,
                 return -5;
         }
 
-        *argv[i] = '\0';
+//        *argv[i] = '\0';
         param++;
     }
 

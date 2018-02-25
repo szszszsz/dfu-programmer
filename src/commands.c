@@ -69,7 +69,7 @@ static void security_message( void ) {
     }
 }
 
-static int32_t execute_erase( dfu_device_t *device,
+int32_t execute_erase( dfu_device_t *device,
                               struct programmer_arguments *args ) {
     int32_t result = SUCCESS;
 
@@ -347,7 +347,7 @@ error:
     return retval;
 }
 
-static int32_t execute_flash( dfu_device_t *device,
+int32_t execute_flash( dfu_device_t *device,
                                 struct programmer_arguments *args ) {
     int32_t  retval = UNSPECIFIED_ERROR;
     int32_t  result;
