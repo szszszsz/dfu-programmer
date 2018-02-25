@@ -1073,9 +1073,9 @@ int32_t parse_arguments( struct programmer_arguments *args,
     }
 
     /* These were taken care of above. */
-    *argv[0] = '\0';
-    *argv[1] = '\0';
-    *argv[2] = '\0';
+//    *argv[0] = '\0';
+//    *argv[1] = '\0';
+//    *argv[2] = '\0';
 
     /* assign command specific default values */
     switch( args->command ) {

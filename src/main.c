@@ -18,29 +18,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
  */
 
-#if HAVE_CONFIG_H
-# include <config.h>
-#endif
-#include <stdio.h>
-#include <string.h>
-#ifdef HAVE_LIBUSB_1_0
-#include <libusb.h>
-#else
-#include <usb.h>
-#endif
 
-#include "config.h"
-#include "dfu-device.h"
-#include "dfu.h"
-#include "atmel.h"
-#include "arguments.h"
-#include "commands.h"
-
-
-int debug;
-#ifdef HAVE_LIBUSB_1_0
-libusb_context *usbcontext;
-#endif
+#include "lib_implementation.h"
 
 int main( int argc, char **argv )
 {

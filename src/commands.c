@@ -910,7 +910,7 @@ static int32_t execute_configure( dfu_device_t *device,
     return 0;
 }
 
-static int32_t execute_launch( dfu_device_t *device,
+int32_t execute_launch( dfu_device_t *device,
                                   struct programmer_arguments *args ) {
     if( args->device_type & GRP_STM32 ) {
         return stm32_start_app( device, args->quiet );
