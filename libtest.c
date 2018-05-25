@@ -4,9 +4,16 @@
 
 #include "src/lib_implementation.h"
 
-int main(){
+int main(int argc, char** argv){
 
-//  launch();
-//  erase();
-  flash();
+  if (argc !=2){
+    return 1;
+  }
+  switch (argv[1][0]){
+    case 'l': launch(); break;
+    case 'e': erase(); break;
+    case 'f': flash(); break;
+    default: break;
+  }
+  return 0;
 }

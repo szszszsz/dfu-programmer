@@ -76,12 +76,9 @@ int close_device(){
 
 struct programmer_arguments args;
 
-char *argv[] = {"binary_name", "at32uc3a3256s","flash",
-                "--suppress-bootloader-mem",
-                "/home/sz/work/github/dfu-programmer/cmake-build-debug/firmware_V0.50.0.hex"};
 
-void init_args(){
-  parse_arguments(&args, 5, argv);
+void init_args(char* argv[], size_t argc){
+  parse_arguments(&args, argc, argv);
 }
 
 void init_usb(){
@@ -96,11 +93,10 @@ void init_usb(){
 }
 
 int init(){
-  init_args();
   init_usb();
 
   if(!init_short()){
-    printf("error in init\n");
+    printf("Error in init - check device access privileges. Run with sudo?\n");
     close_device();
     return 1;
   }
@@ -108,6 +104,12 @@ int init(){
 }
 
 void launch(){
+  char *argv[] = {"\0", "at32uc3a3256s",
+                  "launch"
+  };
+  init_args(argv, 3);
+
+
   if(init()){
     printf("error init. closing.\n");
     return;
@@ -120,6 +122,12 @@ void launch(){
 
 
 void erase(){
+  char *argv[] = {"\0", "at32uc3a3256s",
+                  "erase",
+  };
+  init_args(argv, 3);
+
+
   if(init())
     return;
 
@@ -129,13 +137,20 @@ void erase(){
 }
 
 void flash(){
-  init_args();
-//  if(init())
-//    return;
+  char *argv[] = {"\0", "at32uc3a3256s",
+                  "flash",
+                  "--suppress-bootloader-mem",
+                  "/home/sz/work/github/dfu-programmer/cmake-build-debug/firmware_V0.50.0.hex"
+  };
+  init_args(argv, 5);
+
+
+  if(init())
+    return;
 
 //  args.suppressbootloader = 1;
-  printf("args.suppressbootloader: %d\n", args.suppressbootloader);
-//  execute_flash(&dfu_device, &args);
+//  printf("args.suppressbootloader: %d\n", args.suppressbootloader);
+  execute_flash(&dfu_device, &args);
 
   close_device();
 }
